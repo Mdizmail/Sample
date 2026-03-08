@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SteelCrest — Premium Roofing Sheets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --steel: #b0bec5;
+      --rust: #e87040;
+      --rust-dark: #c0521e;
+      --dark: #0d0f12;
+      --dark2: #151820;
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.13);
+      --glass-shadow: 0 8px 40px rgba(0,0,0,0.45);
+      --text: #e8eaf0;
+      --muted: #8a93a8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(13,15,18,0.65);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.12em;
+      color: var(--text);
+    }
+    .logo span { color: var(--rust); }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--rust); }
+    .nav-cta {
+      background: var(--rust); color: #fff;
+      border: none; padding: 0.6rem 1.5rem;
+      font-family: 'Barlow', sans-serif; font-size: 0.82rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s;
+    }
+    .nav-cta:hover { background: var(--rust-dark); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); display: block; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+      filter: brightness(0.35) saturate(0.6);
+      transform: scale(1.04);
+      animation: subtle-zoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes subtle-zoom { to { transform: scale(1.10); } }
+
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(13,15,18,0.7) 30%, rgba(232,112,64,0.08));
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5%; max-width: 780px;
+      animation: fade-up 1s ease both;
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--rust); margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      line-height: 0.92; letter-spacing: 0.02em;
+      color: #fff; margin-bottom: 1.6rem;
+    }
+    .hero-title em { color: var(--rust); font-style: normal; }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--steel); max-width: 500px; line-height: 1.7;
+      margin-bottom: 2.4rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--rust); color: #fff; border: none;
+      padding: 0.85rem 2.2rem; font-family: 'Barlow', sans-serif;
+      font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s, transform 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--rust-dark); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: #fff;
+      border: 1px solid var(--glass-border);
+      padding: 0.85rem 2.2rem; font-family: 'Barlow', sans-serif;
+      font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; transition: border-color 0.25s, transform 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--rust); transform: translateY(-2px); }
+
+    /* Hero stats */
+    .hero-stats {
+      position: absolute; bottom: 3rem; right: 5%;
+      display: flex; gap: 2rem; z-index: 2;
+      animation: fade-up 1s 0.4s ease both;
+    }
+    .stat-glass {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      padding: 1.2rem 1.8rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem; color: var(--rust); letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; margin-top: 0.3rem; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 5%; }
+    .section-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--rust); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: 0.04em; line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); max-width: 520px; line-height: 1.7; font-size: 0.95rem; }
+
+    /* ── FEATURES STRIP ── */
+    #features {
+      background: var(--dark2);
+      padding: 3.5rem 5%;
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      padding: 1.8rem 1.6rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .feature-card:hover { border-color: var(--rust); transform: translateY(-4px); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .feature-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── PRODUCTS ── */
+    #products { background: var(--dark); }
+    .products-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+    .product-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+      transition: transform 0.35s, box-shadow 0.35s;
+      position: relative;
+    }
+    .product-card:hover { transform: translateY(-8px); box-shadow: var(--glass-shadow); }
+    .product-img {
+      width: 100%; height: 230px;
+      object-fit: cover; display: block;
+      filter: saturate(0.65) brightness(0.85);
+      transition: filter 0.4s, transform 0.4s;
+    }
+    .product-card:hover .product-img { filter: saturate(1) brightness(1); transform: scale(1.04); }
+    .product-img-wrap { overflow: hidden; position: relative; }
+    .product-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--rust); color: #fff;
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+    }
+    .product-body { padding: 1.6rem 1.8rem 2rem; }
+    .product-cat { font-size: 0.7rem; letter-spacing: 0.22em; color: var(--rust); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .product-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.06em; margin-bottom: 0.7rem; }
+    .product-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.4rem; }
+    .product-specs { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .spec-pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--glass-border);
+      font-size: 0.72rem; letter-spacing: 0.1em; color: var(--steel);
+      padding: 0.3rem 0.75rem;
+    }
+    .product-link {
+      font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--rust); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: gap 0.25s;
+    }
+    .product-link:hover { gap: 0.9rem; }
+
+    /* ── WHY STEELCREST ── */
+    #why {
+      background: var(--dark2);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .why-img-wrap { position: relative; }
+    .why-img {
+      width: 100%; height: 520px;
+      object-fit: cover; display: block;
+      filter: saturate(0.55);
+    }
+    .why-img-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, var(--dark2) 0%, transparent 60%);
+      height: 50%;
+    }
+    .why-accent {
+      position: absolute; top: -1.5rem; right: -1.5rem;
+      width: 120px; height: 120px;
+      background: var(--rust); opacity: 0.18;
+    }
+    .why-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .why-item {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      padding: 1.2rem 1.4rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s;
+    }
+    .why-item:hover { border-color: var(--rust); }
+    .why-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; color: var(--rust); line-height: 1; flex-shrink: 0;
+    }
+    .why-text h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .why-text p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--dark); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 240px 240px;
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .gallery-item { overflow: hidden; position: relative; }
+    .gallery-item:first-child { grid-column: span 2; grid-row: span 2; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.5) brightness(0.8);
+      transition: filter 0.4s, transform 0.5s;
+    }
+    .gallery-item:hover img { filter: saturate(0.9) brightness(1); transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,15,18,0.7) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end; padding: 1.2rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-tag { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); }
+
+    /* ── CTA BANNER ── */
+    #cta {
+      position: relative;
+      padding: 7rem 5%;
+      overflow: hidden;
+      text-align: center;
+    }
+    .cta-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=1400&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+      filter: brightness(0.2) saturate(0.4);
+    }
+    .cta-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(232,112,64,0.18), rgba(13,15,18,0.5));
+    }
+    .cta-content { position: relative; z-index: 2; }
+    .cta-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 1.4rem;
+    }
+    .cta-content p { font-size: 1rem; color: var(--steel); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #090b0e;
+      border-top: 1px solid var(--glass-border);
+      padding: 4rem 5% 2rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand .logo { font-size: 2rem; display: block; margin-bottom: 1rem; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; max-width: 280px; }
+    .footer-col h5 { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rust); margin-bottom: 1.2rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-col a { color: var(--muted); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--glass-border);
+      padding-top: 1.8rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ══════════════════════════
+       MEDIA QUERIES
+    ══════════════════════════ */
+
+    /* Tablet ≤ 1024px */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      #why { grid-template-columns: 1fr; gap: 2.5rem; }
+      .why-img { height: 340px; }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: 200px 200px; }
+      .gallery-item:first-child { grid-column: span 2; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .hero-stats { gap: 1rem; }
+    }
+
+    /* Tablet small ≤ 768px */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 5%; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-cta { display: none; }
+
+      .hero-stats {
+        position: static; display: flex; justify-content: center;
+        flex-wrap: wrap; margin-top: 2.5rem;
+      }
+      #hero { flex-direction: column; padding-top: 6rem; padding-bottom: 3rem; min-height: auto; }
+      .hero-content { padding: 3rem 5% 0; max-width: 100%; }
+
+      .products-grid { grid-template-columns: 1fr; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 200px);
+      }
+      .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
+
+      #why { padding: 4rem 5%; }
+      .why-img { height: 260px; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .products-header { flex-direction: column; align-items: flex-start; }
+
+      section { padding: 4rem 5%; }
+    }
+
+    /* Mobile ≤ 480px */
+    @media (max-width: 480px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, 200px);
+      }
+      .gallery-item:first-child { grid-column: span 1; }
+      .stat-glass { padding: 0.9rem 1.2rem; }
+      .stat-num { font-size: 1.8rem; }
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-ghost { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Steel<span>Crest</span></div>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+  <button class="nav-cta">Get Quote</button>
+  <div class="hamburger" onclick="this.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Premium Industrial Roofing</p>
+    <h1 class="hero-title">Built to<br/>With<em>stand</em><br/>Everything.</h1>
+    <p class="hero-sub">Engineered roofing sheet solutions for commercial, industrial, and residential structures. Galvanized, coated, and custom-profile.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Explore Products</a>
+      <a href="#cta" class="btn-ghost">Request a Quote</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-glass">
+      <div class="stat-num">25+</div>
+      <div class="stat-label">Years in Steel</div>
+    </div>
+    <div class="stat-glass">
+      <div class="stat-num">340K</div>
+      <div class="stat-label">Sq Ft Installed</div>
+    </div>
+    <div class="stat-glass">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Client Retention</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES STRIP -->
+<section id="features">
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">🔩</div>
+      <h3>Anti-Corrosion Coating</h3>
+      <p>Hot-dip galvanized and Zincalume® coatings for multi-decade protection against rust and weathering.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🌡️</div>
+      <h3>Thermal Efficiency</h3>
+      <p>Reflective surface finishes reduce heat gain by up to 40%, cutting cooling costs significantly.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🏗️</div>
+      <h3>High Load Bearing</h3>
+      <p>Engineered profiles with superior strength-to-weight ratios for demanding structural loads.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🎨</div>
+      <h3>Custom Colour Coated</h3>
+      <p>Over 60 RAL and custom colours available on PPGI and PPGL substrate with UV-stable finish.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-header">
+    <div>
+      <p class="section-eyebrow">Product Portfolio</p>
+      <h2 class="section-title">Our Roofing Sheet Range</h2>
+      <p class="section-sub">From industrial warehouses to modern architectural rooftops — precision-engineered profiles for every application.</p>
+    </div>
+    <a href="#cta" class="btn-ghost">Full Catalogue →</a>
+  </div>
+
+  <div class="products-grid">
+
+    <!-- Card 1 -->
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://images.unsplash.com/photo-1590644365607-524b0dca7b2c?w=700&auto=format&fit=crop" alt="Corrugated Roofing"/>
+        <span class="product-badge">Best Seller</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Corrugated Series</p>
+        <h3 class="product-name">Crest Wave 760</h3>
+        <p class="product-desc">Classic corrugated profile ideal for agricultural buildings, warehouses, and budget-friendly industrial applications.</p>
+        <div class="product-specs">
+          <span class="spec-pill">0.35–0.7mm</span>
+          <span class="spec-pill">Galvanized / PPGI</span>
+          <span class="spec-pill">760mm Cover</span>
+        </div>
+        <a href="#" class="product-link">View Details →</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&auto=format&fit=crop" alt="Trapezoidal Roofing"/>
+        <span class="product-badge">New Profile</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Trapezoidal Series</p>
+        <h3 class="product-name">IronEdge T1000</h3>
+        <p class="product-desc">Deep trapezoidal rib profile designed for large-span industrial and commercial roofing with superior load capacity.</p>
+        <div class="product-specs">
+          <span class="spec-pill">0.5–1.2mm</span>
+          <span class="spec-pill">Zincalume® / PPGL</span>
+          <span class="spec-pill">1000mm Cover</span>
+        </div>
+        <a href="#" class="product-link">View Details →</a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&auto=format&fit=crop" alt="Standing Seam Roofing"/>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Standing Seam</p>
+        <h3 class="product-name">StealthLine SS430</h3>
+        <p class="product-desc">Premium standing seam system for architectural facades and modern low-pitch residential roof designs.</p>
+        <div class="product-specs">
+          <span class="spec-pill">0.6mm–0.9mm</span>
+          <span class="spec-pill">Colour Coated</span>
+          <span class="spec-pill">430mm Seam</span>
+        </div>
+        <a href="#" class="product-link">View Details →</a>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&auto=format&fit=crop" alt="Sandwich Panel"/>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Insulated Panels</p>
+        <h3 class="product-name">ThermoPanel EPS</h3>
+        <p class="product-desc">EPS core sandwich panel offering R-value thermal insulation with integrated steel skin for cold storage and clean rooms.</p>
+        <div class="product-specs">
+          <span class="spec-pill">50–150mm Core</span>
+          <span class="spec-pill">EPS / PIR / PUR</span>
+          <span class="spec-pill">1000mm Cover</span>
+        </div>
+        <a href="#" class="product-link">View Details →</a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=700&auto=format&fit=crop" alt="Tile Effect Sheets"/>
+        <span class="product-badge">Popular</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Tile Effect</p>
+        <h3 class="product-name">Heritage Tile 900</h3>
+        <p class="product-desc">Pressed steel tile effect sheets replicating traditional clay tile aesthetics for residential and heritage developments.</p>
+        <div class="product-specs">
+          <span class="spec-pill">0.45mm Thick</span>
+          <span class="spec-pill">PPGI Coated</span>
+          <span class="spec-pill">900mm Cover</span>
+        </div>
+        <a href="#" class="product-link">View Details →</a>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&auto=format&fit=crop" alt="Custom Roofing"/>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Custom Profile</p>
+        <h3 class="product-name">Bespoke Roll-Form</h3>
+        <p class="product-desc">On-demand roll-forming service for unique architectural profiles and OEM sheet specifications with fast turnaround.</p>
+        <div class="product-specs">
+          <span class="spec-pill">Any Gauge</span>
+          <span class="spec-pill">Any Substrate</span>
+          <span class="spec-pill">MOQ 1 Tonne</span>
+        </div>
+        <a href="#" class="product-link">Enquire Now →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY STEELCREST -->
+<section id="why">
+  <div class="why-img-wrap reveal">
+    <div class="why-accent"></div>
+    <img class="why-img" src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=800&auto=format&fit=crop" alt="Factory quality control"/>
+    <div class="why-img-overlay"></div>
+  </div>
+  <div class="why-content">
+    <p class="section-eyebrow">Why SteelCrest</p>
+    <h2 class="section-title">The Standard Others<br/>Measure Against</h2>
+    <p class="section-sub">Three decades of metallurgical expertise and precision roll-forming means every sheet leaving our plant performs exactly as specified.</p>
+    <div class="why-list">
+      <div class="why-item reveal">
+        <div class="why-num">01</div>
+        <div class="why-text">
+          <h4>ISO 9001:2015 Certified Manufacturing</h4>
+          <p>Our fully integrated plant operates under strict ISO quality protocols — from raw coil to finished product.</p>
+        </div>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">02</div>
+        <div class="why-text">
+          <h4>On-Site Technical Consultation</h4>
+          <p>Expert engineers visit your site to assess requirements, perform load calculations, and recommend the optimal system.</p>
+        </div>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">03</div>
+        <div class="why-text">
+          <h4>Cut-to-Length with 24hr Dispatch</h4>
+          <p>Sheets cut precisely to your dimensions and dispatched within 24 hours from our dedicated logistics fleet.</p>
+        </div>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">04</div>
+        <div class="why-text">
+          <h4>30-Year Coating Warranty</h4>
+          <p>Our PVDF and SMP colour coatings carry a 30-year warranty against fade, chalk, and corrosion-blister.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <p class="section-eyebrow reveal">Project Gallery</p>
+  <h2 class="section-title reveal">Installed. Proven. Trusted.</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&auto=format&fit=crop" alt="Industrial Warehouse"/>
+      <div class="gallery-overlay"><span class="gallery-tag">Industrial Warehouse · Dubai</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1590644365607-524b0dca7b2c?w=600&auto=format&fit=crop" alt="Commercial Roofing"/>
+      <div class="gallery-overlay"><span class="gallery-tag">Commercial Complex · Riyadh</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&auto=format&fit=crop" alt="Residential"/>
+      <div class="gallery-overlay"><span class="gallery-tag">Residential Estate · Chennai</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=600&auto=format&fit=crop" alt="Heritage Project"/>
+      <div class="gallery-overlay"><span class="gallery-tag">Heritage Restoration · Mumbai</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop" alt="Factory Build"/>
+      <div class="gallery-overlay"><span class="gallery-tag">Logistics Park · Pune</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-content reveal">
+    <p class="section-eyebrow" style="text-align:center;">Ready to Build?</p>
+    <h2>Get Your <em style="color:var(--rust);font-style:normal;">Free</em><br/>Project Quote Today</h2>
+    <p>Tell us your dimensions, substrate, and finish preferences — our team responds within 4 business hours with a detailed proposal.</p>
+    <a href="mailto:sales@steelcrest.com" class="btn-primary" style="font-size:0.95rem; padding: 1rem 3rem;">Request a Quote</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Steel<span>Crest</span></span>
+      <p>Premium roofing sheet manufacturer serving industrial, commercial, and residential markets across South Asia & the Middle East.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Products</h5>
+      <ul>
+        <li><a href="#">Corrugated Sheets</a></li>
+        <li><a href="#">Trapezoidal Profiles</a></li>
+        <li><a href="#">Standing Seam</a></li>
+        <li><a href="#">Sandwich Panels</a></li>
+        <li><a href="#">Tile Effect</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Quality & Certifications</a></li>
+        <li><a href="#">Project Gallery</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">News</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#">sales@steelcrest.com</a></li>
+        <li><a href="#">+91 98765 43210</a></li>
+        <li><a href="#">Technical Support</a></li>
+        <li><a href="#">Dealer Enquiry</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 SteelCrest Industries Pvt. Ltd. All rights reserved.</p>
+    <p>Privacy Policy · Terms of Use</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  // Stagger delays for grids
+  document.querySelectorAll('.features-grid .feature-card, .products-grid .product-card').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 3) * 0.12}s`;
+  });
+</script>
+</body>
+</html>
